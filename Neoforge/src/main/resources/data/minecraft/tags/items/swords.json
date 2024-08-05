@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "shortswords:netherite_short_sword",
+    "shortswords:diamont_short_sword",
+    "shortswords:golden_short_sword",
+    "shortswords:iron_shortsword",
+    "shortswords:stone_short_sword",
+    "shortswords:wooden_short_sword"
+  ]
+}
