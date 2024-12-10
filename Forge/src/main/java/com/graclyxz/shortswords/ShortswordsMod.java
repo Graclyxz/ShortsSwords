@@ -1,25 +1,26 @@
 package com.graclyxz.shortswords;
 
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-
+import com.graclyxz.shortswords.init.ModItems;
+import com.graclyxz.shortswords.init.ModTab;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import net.minecraftforge.common.MinecraftForge;
+@Mod(Constants.MOD_ID)
+public class ShortSwordsMod {
+    public ShortSwordsMod(FMLJavaModLoadingContext context) {
 
-import com.graclyxz.shortswords.init.ShortswordsModTabs;
-import com.graclyxz.shortswords.init.ShortswordsModItems;
+        IEventBus eventBus = context.getModEventBus();
 
-@Mod("shortswords")
-public class ShortswordsMod {
-	public static final String MODID = "shortswords";
+        // This method is invoked by the Forge mod loader when it is ready
+        // to load your mod. You can access Forge and Common code in this
+        // project.
 
-	public ShortswordsMod() {
-		MinecraftForge.EVENT_BUS.register(this);
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        // Use Forge to bootstrap the Common mod.
+        Constants.LOG.info("Hello Forge world!");
+        CommonClass.init();
 
-		ShortswordsModItems.REGISTRY.register(bus);
-
-		ShortswordsModTabs.REGISTRY.register(bus);
-	}
+        ModItems.register(eventBus);
+        ModTab.register(eventBus);
+    }
 }
