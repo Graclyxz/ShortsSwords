@@ -10,39 +10,34 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import static com.graclyxz.shortswords.Constants.MOD_ID;
+import java.util.List;
+import java.util.function.Function;
+
+import static com.graclyxz.shortswords.ShortswordsMod.MOD_ID;
+
 
 public class ModItems {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
 
+    public static final List<DeferredItem<Item>> SHORT_SWORDS = registerTools("short_sword", new Item.Properties());
 
-    public static final DeferredItem<SwordItem> WOODEN_SHORT_SWORD = ITEMS.register("wooden_short_sword",
-            () -> new SwordItem(ToolMaterial.WOOD, 2, -1.5f, new Item.Properties()
-                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "wooden_short_sword")))));
+    public static DeferredItem<Item> registerItem(String name, Function<Item.Properties, Item> function, Item.Properties itemProp) {
+        return ITEMS.register(name, () -> function.apply(itemProp.setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, name)))));
+    }
 
-    public static final DeferredItem<SwordItem> STONE_SHORT_SWORD = ITEMS.register("stone_short_sword",
-            () -> new SwordItem(ToolMaterial.STONE, 2, -1.5f, new Item.Properties()
-                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "stone_short_sword")))));
+    private static List<DeferredItem<Item>> registerTools(String name, Item.Properties itemProp) {
+        return List.of(
+                registerItem("wooden_" + name, (p) -> new SwordItem(ToolMaterial.WOOD,  2, -1.5f, p), itemProp),
+                registerItem("stone_" + name, (p) -> new SwordItem(ToolMaterial.STONE,  2, -1.5f, p), itemProp),
+                registerItem("iron_" + name , (p) -> new SwordItem(ToolMaterial.IRON,  2, -1.5f, p), itemProp),
+                registerItem("golden_" + name, (p) -> new SwordItem(ToolMaterial.GOLD,  2, -1.5f, p), itemProp),
+                registerItem( "diamont_" + name, (p) -> new SwordItem(ToolMaterial.DIAMOND,  2, -1.5f, p), itemProp),
+                registerItem("netherite_" + name, (p) -> new SwordItem(ToolMaterial.NETHERITE,  2, -1.5f, p), itemProp.fireResistant())
+        );
+    }
 
-    public static final DeferredItem<SwordItem> IRON_SHORT_SWORD = ITEMS.register("iron_short_sword",
-            () -> new SwordItem(ToolMaterial.IRON, 2, -1.5f, new Item.Properties()
-                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "iron_short_sword")))));
-
-    public static final DeferredItem<SwordItem> GOLDEN_SHORT_SWORD = ITEMS.register("golden_short_sword",
-            () -> new SwordItem(ToolMaterial.GOLD, 2, -1.5f, new Item.Properties()
-                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "golden_short_sword")))));
-
-    public static final DeferredItem<SwordItem> DIAMONT_SHORT_SWORD = ITEMS.register("diamont_short_sword",
-            () -> new SwordItem(ToolMaterial.DIAMOND, 2, -1.5f, new Item.Properties()
-                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "diamont_short_sword")))));
-
-    public static final DeferredItem<SwordItem> NETHERITE_SHORT_SWORD = ITEMS.register("netherite_short_sword",
-            () -> new SwordItem(ToolMaterial.NETHERITE, 2, -1.5f, new Item.Properties()
-                    .setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "netherite_short_sword")))
-                    .fireResistant()));
-
-    public static void register(IEventBus eventBus) {
-        ITEMS.register(eventBus);
+    public static void init(IEventBus bus) {
+        ITEMS.register(bus);
     }
 }

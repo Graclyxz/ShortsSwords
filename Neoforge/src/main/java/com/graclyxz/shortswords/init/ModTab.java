@@ -11,13 +11,14 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-import static com.graclyxz.shortswords.Constants.MOD_ID;
+import static com.graclyxz.shortswords.ShortswordsMod.MOD_ID;
+
 
 public class ModTab {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
     public static final Supplier<CreativeModeTab> TAB_SHORTS_SWORDS = TABS.register("tab_shortswords", () -> CreativeModeTab.builder()
-            .icon(() -> new ItemStack(ModItems.NETHERITE_SHORT_SWORD.get()))
+            .icon(() -> new ItemStack(ModItems.SHORT_SWORDS.get(5).asItem()))
             .displayItems((features, event) -> {
                 for (DeferredHolder<Item, ? extends Item> item : ModItems.ITEMS.getEntries())
                     event.accept(item.get());
@@ -26,7 +27,7 @@ public class ModTab {
             .build());
 
 
-    public static void register(IEventBus modEventBus) {
-        TABS.register(modEventBus);
+    public static void init(IEventBus bus) {
+        TABS.register(bus);
     }
 }

@@ -12,7 +12,7 @@ issueTrackerURL = "${mod_issues}"
     logoFile = "${mod_id}.png"
     authors = "${mod_author}"
     description = "${mod_description}"
-    itemIcon = "ingotcraft:netherite_pick_hammer"
+    itemIcon = "shortswords:netherite_short_sword"
 
 [[dependencies.${mod_id}]]
     modId = "forge"

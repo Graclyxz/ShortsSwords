@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.graclyxz.shortswords.Constants.MOD_ID;
+import static com.graclyxz.shortswords.ShortSwordsMod.MOD_ID;
 
 public class ModItems {
+
 
     public static final List<Item> ITEMS = new ArrayList<>();
 

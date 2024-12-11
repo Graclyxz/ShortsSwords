@@ -9,8 +9,8 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import static com.graclyxz.shortswords.ShortSwordsMod.MOD_ID;
 
-import static com.graclyxz.shortswords.Constants.MOD_ID;
 
 public class ModTab {
 

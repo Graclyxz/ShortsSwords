@@ -11,7 +11,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import static com.graclyxz.shortswords.Constants.MOD_ID;
+import static com.graclyxz.shortswords.ShortswordsMod.MOD_ID;
+
 
 public class ModItems {
 

@@ -11,7 +11,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-import static com.graclyxz.shortswords.Constants.MOD_ID;
+import static com.graclyxz.shortswords.ShortswordsMod.MOD_ID;
+
 
 public class ModTab {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);

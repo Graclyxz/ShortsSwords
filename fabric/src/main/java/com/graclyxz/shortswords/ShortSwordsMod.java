@@ -5,11 +5,11 @@ import com.graclyxz.shortswords.init.ModTab;
 import net.fabricmc.api.ModInitializer;
 
 public class ShortSwordsMod implements ModInitializer {
-    
+
+    public static final String MOD_ID = "shortswords";
+
     @Override
     public void onInitialize() {
-        Constants.LOG.info("Hello Fabric world!");;
-
         ModItems.init();
         ModTab.init();
     }

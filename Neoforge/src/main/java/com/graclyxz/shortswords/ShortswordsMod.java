@@ -1,20 +1,19 @@
 package com.graclyxz.shortswords;
 
-
 import com.graclyxz.shortswords.init.ModItems;
 import com.graclyxz.shortswords.init.ModTab;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
-@Mod(MOD_ID)
-public class ShortSwordsMod {
+@Mod(ShortswordsMod.MOD_ID)
+public class ShortswordsMod {
 
-    public ShortSwordsMod(IEventBus eventBus) {
+    public static final String MOD_ID = "shortswords";
 
-        Constants.LOG.info("Hello NeoForge world!");
+    public ShortswordsMod(IEventBus eventBus) {
 
-        ModItems.register(eventBus);
-        ModTab.register(eventBus);
+        ModItems.init(eventBus);
+        ModTab.init(eventBus);
 
     }
 }

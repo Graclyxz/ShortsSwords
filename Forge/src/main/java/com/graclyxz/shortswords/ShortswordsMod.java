@@ -6,13 +6,14 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(MOD_ID)
-public class ShortSwordsMod {
-    public ShortSwordsMod(FMLJavaModLoadingContext context) {
+@Mod(ShortswordsMod.MOD_ID)
+public class ShortswordsMod {
+
+    public static final String MOD_ID = "shortswords";
+
+    public ShortswordsMod(FMLJavaModLoadingContext context) {
 
         IEventBus eventBus = context.getModEventBus();
-
-        Constants.LOG.info("Hello Forge world!");
 
         ModItems.register(eventBus);
         ModTab.register(eventBus);

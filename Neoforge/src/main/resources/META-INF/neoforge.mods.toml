@@ -12,7 +12,6 @@ issueTrackerURL = "${mod_issues}"
     logoFile = "${mod_id}.png"
     authors = "${mod_author}"
     description = "${mod_description}"
-    itemIcon = "ingotcraft:netherite_pick_hammer"
 
 [[dependencies.${mod_id}]]
     modId = "neoforge"
