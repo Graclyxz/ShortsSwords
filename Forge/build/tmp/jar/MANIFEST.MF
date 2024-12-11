@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Specification-Title: Short Swords
-Specification-Vendor: Graclyxz
-Specification-Version: 1.0.4
-Implementation-Title: forge
-Implementation-Version: 1.0.4
-Implementation-Vendor: Graclyxz
-Built-On-Minecraft: 1.21.3
-

@@ -1,29 +1,29 @@
 plugins {
-    id 'multiloader-loader'
-    id 'net.neoforged.moddev'
+    id 'idea'
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.52-beta'
+    id 'me.modmuss50.mod-publish-plugin' version '0.6.3'
 }
+
+version = "${version}-neoforge"
+base.archivesName = mod_id
 
 neoForge {
     version = neoforge_version
-    // Automatically enable neoforge AccessTransformers if the file exists
-    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
-        accessTransformers.add(at.absolutePath)
-    }
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
+        accessTransformers.from(at)
     }
     runs {
         configureEach {
-            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
-            ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
         }
         client {
             client()
         }
         data {
-            data()
+            clientData()
         }
         server {
             server()
@@ -36,4 +36,56 @@ neoForge {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources.srcDir 'src/generated/resources'
+
+dependencies {
+    compileOnly project(":common")
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+def resourceTargets = ['META-INF/neoforge.mods.toml', 'pack.mcmeta']
+def replaceProperties = [
+        minecraft_version: minecraft_version, minecraft_version_range: neoforge_minecraft_version_range,
+        neoforge_version: neoforge_version, neoforge_version_range: neoforge_version_range,
+        loader_version_range: neoforge_loader_version_range,
+        mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: version,
+        mod_author: mod_author, mod_description: mod_description,
+        mod_url: mod_url, mod_issues: mod_issues, side: neoforge_side
+]
+
+processResources {
+    inputs.properties replaceProperties
+    filesMatching(resourceTargets) {
+        expand replaceProperties
+    }
+    from project(":common").sourceSets.main.resources
+    exclude '**/data/fabric/**', '**/data/forge/**'
+}
+
+publishMods {
+    file = jar.archiveFile
+    displayName = "${mod_name} ${project.version}"
+    type = STABLE
+    modLoaders.addAll("neoforge")
+    changelog = rootProject.file("CHANGELOG.md").text
+    def gameVersions = ["1.21.4"]
+
+    curseforge {
+        accessToken = System.getenv("CURSEFORGE_TOKEN")
+        projectId = "399140"
+        minecraftVersions.addAll(gameVersions)
+    }
+
+    modrinth {
+        accessToken = System.getenv("MODRINTH_TOKEN")
+        projectId = "Kma1RCF3"
+        minecraftVersions.addAll(gameVersions)
+    }
+}
+
+["publishCurseforge", "publishModrinth", "publishMods"].each { task ->
+    tasks.named(task) {
+        mustRunAfter(":forge:$task")
+    }
+}
